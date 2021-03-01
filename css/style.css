@@ -1,0 +1,1364 @@
+/* 169行目 93行目 headerの部分の表示をけしたい*/
+
+
+@charset "UTF-8";
+/*
+主たるブレイクポイント
+768px以下sp.tab
+769px以上pc
+1000px以上pc2
+*/
+
+
+/*===============
+共通設定 & 汎用クラス
+===============*/
+
+
+.header{
+  overflow: hidden;
+}
+
+/* html */
+html{
+  font-size: 62.5%;
+}
+/* body */
+
+body{
+  font-size: 1.6rem;   
+  font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;
+  line-height: 2;
+  color: #333;
+}
+
+/* aタグ */
+a{
+  text-decoration: none;
+}
+a:hover{
+  opacity: 0.6;
+}
+/* .cf */
+
+.cf::after{
+  content: "";
+  display: block;
+  clear:both;
+}
+/* 携帯 */
+.sp{
+  display: block;
+}
+/* ｐｃ */
+.pc{
+  display: none;
+}
+
+/* .to_top footerの下のボタンをおすと上がる */
+
+.to_top{
+  font-size:4rem;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50px;
+  background-color: #fff;
+  width:50px;
+  height:50px;
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  cursor: pointer;
+}
+/* 
+------------------------------
+画像ローディング　一番はじめ
+------------------------------ */
+
+
+
+#loader-bg {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #000;
+  z-index: 1;
+}
+#loader {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  text-align: center;
+  color: #fff;
+  z-index: 20;
+}
+
+
+/* --------------------------------
+@media screen and (min-width:600px
+-------------------------------- */
+
+/* ここがイメージと違う */
+@media screen and (min-width:600px){
+  .sp{
+    display: none;
+  }
+  .pc{
+    display: block;
+  }
+}
+
+/* .title */
+.title{
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 30px;
+  line-height: 1;
+}
+
+.btn a{
+  display: block;
+  background-color: #3CAD5A;
+  width:80%;
+  max-width:270px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #fff;
+  line-height: 70px;
+}
+
+/* 
+@media screen and (min-width:769px){ */
+  @media screen and (min-width:769px){
+ 
+      .btn a{
+        width:60%;
+      }
+  }
+    
+  .inner{
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+  .break{
+      display: inline-block;
+    }
+  .row{
+      padding: 70px 5%;
+    }
+
+
+@media screen and (min-width:769px){
+  .row{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+
+/*===============
+ヘッダー header
+===============*/
+/* 要確認sticky 固定　top0*/
+header{
+  position:sticky;
+  top:0;
+  width:100%;
+  height: 70px;
+  background-color: rgba(255,255,255,0.8);
+  /* 修正 */
+  z-index:10;
+}
+
+header div{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  position: relative;
+
+}
+/* img画像 */
+header h1{
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 5px;
+}
+/* --------------------
+メニュー .pc_nav　.sp_nav
+-------------------- */
+.sp_nav{
+  display: block;
+}
+
+.pc_nav{
+  display: none;
+}
+
+/* --------------------
+メニュー .sp_nav 3本線
+-------------------- */
+
+
+.sp_nav > div{
+  width:24px;
+  height: 24px;
+  position: fixed;
+  top:20px;
+  right: 15px;
+  z-index: 100000;
+}
+
+.sp_nav div span{
+  display: block;
+  width:100%;
+  background-color: #333;
+  height: 2px;
+  transition:0.4s;
+  position: absolute;
+}
+
+
+/* 3本線作成 */
+
+.sp_nav div span:first-child{
+  top:0;
+}
+
+.sp_nav div span:nth-child(2){
+  top:11px;
+}
+
+.sp_nav div span:last-child{
+  bottom:0;
+}
+
+/* 3本線を曲げる  onのクラスをJSで作成する*/
+.sp_nav.on span:nth-child(1){
+  transform: translate(0px,11px)rotate(45deg);
+}
+
+.sp_nav.on span:nth-child(2){
+  visibility: hidden;
+}
+
+.sp_nav.on span:nth-child(3){
+  transform: translate(0px,-11px)rotate(-45deg);
+}
+/* 3本線おした時、移動先画面作成 */
+
+.sp_nav nav > div{
+  width:100%;
+  height: 100vh;
+  padding-top:64px;
+  padding-left:32px;
+  padding-right: 32px;
+  background-color: #FAEBDF;
+  position: fixed;
+  top: 0;
+  transform: translateX(100%);
+  transition: 0.3s;
+  overflow-y: auto;
+}
+
+
+.sp_nav.on nav > div{
+  transform: translateX(0%);
+}
+
+.sp_nav.on nav > div ul{
+  margin-bottom: 20px;
+}
+
+.sp_nav nav > div ul li{
+  font-size:2rem;
+  line-height: 5rem;
+}
+.sp_nav nav > div ul ul li{
+  padding-left: 20px;
+  font-size:1.6rem;
+}
+.sp_nav nav > div ul li a{
+  color: #707070;
+  display: block;
+  border-bottom: 1px solid #707070;
+}
+
+.sp_nav nav > div ul li > ul li a{
+  border-bottom: 1px dotted #707070;
+}
+
+/* --------------------
+メニュー .sp_nav 3本線 min-width:769px
+-------------------- */
+@media screen and (min-width:769px){
+  .sp_nav{
+    display: none;
+  }
+
+  .pc_nav{
+    display: block;
+  }
+
+  .pc_nav ul li{
+    display: inline;
+    margin-right: 20px;
+  }
+
+  .pc_nav ul li a{
+    color: #F77237;
+  }
+
+}
+
+/*=====================
+キービジュアル　　　#key 
+=====================*/
+#key{
+  width:100%;
+  background-image: url(../img/daibutu.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+#key div{
+  display: table;
+  height: 80vh;
+}
+
+#key p.sp{
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+#key div.pc{
+  display: none;
+}
+
+@media screen and (min-width:680px){
+  #key p.sp{
+    display: none;
+  }
+
+  #key div.pc{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 4.6rem;
+    font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+    line-height: 1.5;
+  }
+
+  #key div.pc p{
+    background: rgba(247,114,55,0.5);
+    display: inline-block;
+    padding: 46px;
+  }
+
+  #key div.pc p span{
+    font-size: 2.1rem;
+  }
+}
+/* @media screen and (min-width:680px){ */
+
+/*=====================
+スクロール #scroll
+ =====================*/
+ #scroll{
+  text-align: center;
+  line-height: 1;
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
+#scroll p i{
+  border:1px solid #707070;
+  border-radius: 20px;
+}
+
+/*=====================
+メイン main #top_about
+=====================*/
+main #top_about .lead{
+  margin-bottom: 30px;
+}
+
+/* ---------------------------------
+メイン @media screen and (min-width:600px){
+-------------------------------- */
+@media screen and (min-width:600px){
+  main #top_about .lead{
+    max-width:600px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}/*===min-width:600px===*/
+
+
+/*=====================
+メイン main  #top_menu
+=====================*/
+main #top_menu div{
+  padding:0 10%;
+  margin-bottom: 30px;
+}
+
+main #top_menu div figure{
+  margin-bottom: 20px;
+}
+
+
+/* 画像調整 */
+@media screen and (min-width:600px){
+  main #top_menu div figure:last-child,
+  main #top_menu div figure:nth-last-child(2){
+    margin-bottom: 0px;
+  }
+}/* (min-width:600px */
+
+main #top_menu div figure figcaption{
+  text-align: center;
+}
+
+
+/*=====================
+メイン main  #top_menu @media min-width:600px
+=====================*/
+@media screen and (min-width:600px){
+  main #top_menu div{
+    padding:0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  main #top_menu div figure{
+    width:48%;
+  }
+}
+
+/*===min-width:600px===*/
+/*=====================
+メイン main  #top_menu @media min-width:769px
+=====================*/
+
+
+
+@media screen and (min-width:769px){
+  main #top_menu div figure{
+    width:20.5%;
+  }
+}
+/*===min-width:769px===*/
+
+
+/* -----------------------
+メインmain #top_lesson
+---------------------- */
+main #top_lesson{
+  background-color: rgba(247, 114, 55,0.4);
+}
+
+main #top_lesson h2+p{
+  margin-bottom: 15px;
+}
+
+main #top_lesson figure{
+  margin-bottom: 30px;
+}
+
+main #top_lesson figure > p{
+  margin-bottom: 20px;
+}
+
+
+
+
+@media screen and (min-width:769px){
+  main #top_lesson figure{
+    display: flex;
+  }
+
+  main #top_lesson figure > p{
+    margin-right: 20px;
+    width:40%;
+  }
+
+}/*===min-width:769px===*/
+
+
+
+/* -----------------------
+メインmain .bottom_contents
+--------------------  -- */
+main .bottom_contents{
+  padding-bottom: 0;
+}
+
+main #top_voice{
+  padding-bottom: 70px;
+}
+
+main #top_voice figure{
+  padding-left:10%;
+  padding-right: 10%;
+  margin-bottom: 30px;
+}
+
+main #top_voice figure figcaption p:nth-child(2){
+  margin-bottom: 15px;
+}
+
+
+
+
+@media screen and (min-width:769px){
+  main .bottom_contents >div{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  main .bottom_contents section{
+    width:48%;
+  }
+
+
+/* -------------
+  #top_voice 
+---------------- */
+
+  main #top_voice figure{
+    padding:0;
+    display:flex;
+  }
+
+  main #top_voice figure > p{
+    width:50%;
+    height: auto;
+    margin-right: 22px;
+  }
+
+}
+
+/* -----------------------
+メインmain #top_info
+---------------------- */
+
+main #top_info dl{
+  margin-bottom: 10px;
+}
+
+main #top_info dl:last-of-type{
+  margin-bottom: 30px;
+}
+
+main #top_info dl a{
+  color: #F77237;
+}
+
+
+/*=====================
+フッター   footer
+=====================*/
+footer {
+  background-color: #3CAD5A;
+  margin-top: 150px;
+}
+footer{
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+/* 画像のサイズ調整 */
+footer .footer_logo{
+  width: 53%;
+  margin-bottom: 30px;
+}
+footer .footer_wrap{
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* .footer_left */
+
+footer .footer_left ul li{
+  color: #333;
+  list-style: disc;
+}
+footer .footer_left ul li>ul{
+  margin-left: 16px;
+}
+footer .footer_left ul li a{
+  color: #333;
+}
+
+
+footer .footer_right ul{
+  font-size: 0;
+  margin-bottom: 16px;
+}
+
+/* footer_right */
+
+/* display: */
+footer .footer_right ul li{
+  list-style: none;
+  display: inline;
+  margin-right: 8px;
+}
+footer .footer_right dl{
+  color: #fff;
+}
+footer .footer_right dl dd{
+line-height: 1.5;
+}
+footer .copy{
+  color: #fff;
+  text-align: center;
+}
+/*=====================
+下層共通 .under_title
+=====================*/
+/* header近くの画像の調整 */
+.under_title{
+  height: 25vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding-top:10px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+}
+@media screen and (min-width:769px){
+  .under_title{
+    height: 180px;
+  }
+}/*===min-width:769px===*/
+/* 画像の上の文字heeader近く */
+.under_title span{
+  display: inline-block;
+  background-color: rgba(255,255,255,0.8);
+  font-size: 1.6rem;
+  line-height: 1;
+  padding:20px;
+}
+
+/* パンくず .bread (about.html)*/
+.bread{
+  display: none;
+}
+
+/* パンくず .bread @media min-width:769px*/
+@media screen and (min-width:769px){
+  .bread{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .bread ul{
+    font-size: 0;
+  }
+  .bread ul li{
+    display: inline;
+    font-size: 16px;
+  }
+
+  .bread ul li:after{
+    content: ">";
+    padding:0 7px;
+  }
+  .bread ul li:last-child:after{
+    content: "";
+  }
+}
+/*===max-width:769px===*/
+/* 
+-------------------------------
+下層2カラム  flow info01　共通/　右側のやつ
+-------------------------------- */
+
+
+.wrapper{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.wrapper #side{
+  padding: 0.5%;
+}
+/* 横にする予定の画像 */
+
+.wrapper #side aside{
+  display: none;
+}
+.wrapper #side ul{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+/* 横の所に文字、高さ横幅取る */
+.wrapper #side ul li{
+  line-height: 6.6rem;
+  text-align: center;
+  width: 45.9%;
+  list-style: none;
+  margin-bottom: 30px;
+} 
+/* 要素を箱にして、線に */
+.wrapper #side ul li a{
+  display: block;
+  border: 1px solid #F77237;
+  color:#F77237;
+}
+
+.wrapper #side ul li.current a{
+  background-color: #F77237;
+  color: #fff;
+  border: 1px solid #F77237;
+}
+@media screen and (min-width:769px){
+  .wrapper{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .wrapper #side{
+    padding: 0;
+    width: 30%;
+    max-width: 300px;
+  }
+  .wrapper #side aside{
+    display: block;
+
+  }
+  .wrapper #side ul li{
+    text-align: center;
+    width: 100%;
+    list-style: none;
+    margin-bottom: 0px;
+  }
+  .wrapper #side ul li a{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #F77237;
+  }
+  /* main(左を640pxにして、#sideの隙間開ける) */
+  .wrapper main{
+    padding: 0;
+    width: 64%;
+    max-width: 640px;
+  }
+}
+
+
+
+
+/*=====================
+about (フォルダ、bodyについている）
+=====================*/
+.about .row{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.about .under_title{
+  background-image:url(../img/about_main.jpg);
+  background-position: center bottom;
+}
+
+.about #about_commitment h3{
+  text-align: center;
+}
+
+.about #about_commitment section{
+  margin-bottom: 60px;
+}
+
+.about #about_commitment section .about_text{
+  margin-bottom: 20px;
+}
+
+/* ---------------------
+about @media min-width:769px
+------------------- */
+@media screen and (min-width:769px){
+  
+.about  #about_commitment h3{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+.about  #about_commitment section div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+.about #about_commitment section div .about_text,
+.about #about_commitment section div .about_image{
+  width: 48%;
+} 
+
+.about #about_commitment section:nth-child(odd) div .about_text{
+  order: 1;
+}
+}
+
+
+/*=====================
+menu
+=====================*/
+/* .menu .row */
+.menu .row{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* .menu .under_title */
+
+.menu .under_title{
+  background-image: url(../img/menu_main.jpg);
+  background-position: center center;
+}
+
+/* 今月、定番、米粉を訂正 */
+
+.menu main ul{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.menu main ul li{
+  list-style: none;
+  border: 1px solid #eee;
+  border-bottom: none;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.menu main ul li a{
+  color: #eee;
+  display: block;
+  padding: 1rem;
+}
+
+.menu main ul li a:hover,
+.menu main ul li a.checked{
+  color: #333;
+}
+
+.menu main section figure{
+  margin-bottom: 30px;
+  text-align: center;
+
+}
+@media screen and (min-width:769px){
+  .menu main ul li a{
+    padding: 1rem 2rem;
+  }
+  .menu main section{
+    padding: 0;
+  }
+  
+  .menu main section div{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .menu main section div figure{
+    width: 23%;
+  }
+  .menu main section div :after,
+  .menu main section div :before{
+
+    content:"";
+    display: block;
+    width: 23%;
+    height: 0;
+
+
+  }
+  .menu main section div :before{
+    order: 1;
+  }
+}
+
+
+
+
+
+/* -----------------
+.cake .menu 02.html
+---------------- */
+.cake.menu main section{
+  padding: 0;
+} 
+
+.cake.menu main section .cake_wrap p{
+  margin-bottom: 30px;
+}
+
+.cake.menu main section .cake_wrap dl{
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.cake.menu main section .cake_wrap dl dt{
+  width: 8rem;
+}
+
+.cake.menu main section .cake_wrap dl dd::before{
+  content: ":";
+  margin-right: 1rem;
+}
+
+.cake.menu main section .cake_img{
+  margin-bottom: 30px;
+}
+
+/* -----------------------------
+.cake .menu @media min-width:769px
+---------------------------- */
+@media screen and (min-width:769px){
+  .cake.menu main section .cake_wrap{
+    display: block;
+    padding-right: 50px;
+    padding-top: 50px;
+  }
+  .cake.menu main section{
+    display: flex;
+    position: relative;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+  }
+
+  .cake.menu main section::before{
+    content:"";
+    width: 100%;
+    height:100%;
+    background:rgba(247, 114, 55,0.5);
+    position: absolute;
+    z-index: -100;
+    transform: skew(-10deg);
+  }
+  .cake.menu main section .cake_img{
+    
+    padding: 50px 50px 0 0;
+  }
+  .cake.menu main section .cake_wrap h2{
+    text-align: left;;
+  }
+
+}/*===min-width:769px===*/
+
+/*=====================
+lesson .lesson
+=====================*/
+.lesson .under_title{
+  background-image:url(../img/lesson_main.jpg);
+  background-position: center center;
+}
+
+.lesson .row{
+  padding-top:40px;
+  padding-bottom:40px;
+}
+
+.lesson main > div:last-child{
+  padding-bottom: 0;
+}
+
+.lesson main .lesson_box{
+  display: flex;
+  flex-direction:column-reverse;
+
+}
+
+
+.lesson main .lesson_box div{
+  margin-bottom: 30px;
+}
+.lesson table{
+  width: 100%;
+  margin-bottom:30px ;
+}
+.lesson table th,
+.lesson table td{
+  display: block;
+  text-indent:1rem;
+  line-height: 3;
+}
+
+.lesson table th{
+  font-weight: normal;
+  background-color: #F77237;
+  color:#fff;
+  text-align:left;
+}
+
+.lesson table td{
+  margin-bottom: 10px;
+}
+
+
+
+/*=====================
+lesson .lesson @media (min-width:769px 
+=====================*/
+@media screen and (min-width:769px){
+  .lesson main .lesson_box{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .lesson main .lesson_box > p{
+    width:46.875%;
+  }
+
+  .lesson main .lesson_box div{
+    width:49.21875%;
+  }
+  .lesson main .lesson_box div h2{
+    text-align: left;
+  }
+
+}/*===min-width:769px===*/
+
+/*=====================
+flow @media  min-width:769px
+=====================*/
+.flow .row{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.flow .row:last-of-type{
+  padding-bottom: 0;
+}
+
+.flow .under_title{
+  background-image: url(../img/flow_main.jpg);
+
+}
+.flow .title{
+  text-align: center;
+}
+.flow dl dd .btn{
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.flow main div:first-child figcaption p{
+  margin-top: 30px;
+}
+.flow main > .btn{
+  margin-top: 30px;
+}
+/*===min-width:769px===*/
+
+@media screen and (min-width:769px){
+  /* 画像周り調整 */
+  .flow dl  dd figure{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .flow dl dd figure > p{
+    width: 30%;
+  }
+  .flow dl dd figure > figcaption{
+    width: 65%;
+  }
+}
+
+
+
+
+/*=====================
+contact
+=====================*/
+.contact .row{
+padding-top: 40px;
+padding-bottom: 0;
+
+}
+
+.contact .under_title{
+  background-image: url(../img/contact_main.jpg);
+  background-position: center center;
+}
+
+.contact .flow_area ul{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+/* 円を作る */
+.contact .flow_area ul li{
+  width: 88px;
+  height: 88px;
+  border: 1px solid #3CAD5A;
+  color: #3CAD5A;
+  border-radius: 88px;
+  text-align: center;
+  list-style: none;
+  line-height: 88px;
+}
+.contact .flow_area ul li .current{
+  background: #3CAD5A;
+  color:#fff;
+}
+
+
+.contact dl dd{
+  margin-bottom: 20px;
+}
+.contact dl:last-of-type{
+  margin-bottom: 30px;
+}
+.contact dl:last-of-type dd{
+  margin-bottom: 0;
+}
+/*=====================
+contact input　メールチェック
+=====================*/
+.contact form input[type="text"],
+.contact form input[type="email"],
+.contact form input[type="tel"],
+.contact form input[type="number"]{
+border: 1px solid #ccc;
+max-width: 400px;
+padding: 1rem;
+}
+
+.contact form input[type="number"]{
+  width: 30%;
+  margin-right: 0.5rem;
+
+}
+.contact form input[type="radio"]{
+margin-right: 0.5rem;
+
+}
+.contact form input[type="submit"],
+.contact button
+{
+ background: pink;
+ border: 1px solid transparent;
+ width: 80%; 
+ max-width: 270px;
+ line-height: 70px;
+ color: #fff;
+ cursor: pointer;
+  
+}
+.contact form input[type="submit"]{
+  width: 60%;
+  margin-bottom: 0;
+  max-width: 350px;
+  background: #3CAD5A;
+}
+.contact.check form input[type="submit"]:hover{
+  border:1px solid #F77237;
+  color:#F77237;
+}
+
+.contact select{
+  border:1px solid #ccc;
+  padding:1rem;
+}
+
+.contact textarea{
+  border:1px solid #ccc;
+  width:100%;
+  height: 10rem;
+}
+
+.contact form p{
+  text-align: center;
+}
+
+.contact .attention{
+  color:#f22;
+}
+
+/*=====================
+voice (body)
+=====================*/
+.voice .row{
+  padding-top: 40px;
+  padding-bottom: 0px;
+}
+
+.voice .under_title{
+  background-image: url(../img/main.jpg);
+}
+.voice main >p{
+  margin-bottom: 30px;
+}
+/* 保留 */
+.voice main div .voice_wrap a{
+  color: #333;
+}
+
+
+.voice main a:hover figure{
+  background: rgba(247,114,55,0.5);
+}
+.voice main figure{
+  display: flex;
+  margin-bottom: 30px;
+}
+/* imgタグのコントロール */
+.voice main figure >p{
+  width: 30%;
+  margin-right: 10px;
+} 
+/*=====================
+voice @media min-width:769px
+=====================*/
+
+
+
+
+
+/*===min-width:769px===*/
+
+/*=====================
+voice sannka
+=====================*/
+
+.voice .sanka main dl{
+  margin-bottom: 30px;
+}
+.voice .sanka main dl span{
+  font-family: 'Baloo Bhai', cursive;
+  font-size: 3rem;
+  line-height: 1.3;
+}
+.voice.sanka main dl dt span{
+  color: #F77237;
+}
+
+.voice.sanka main dl dd span{
+  color: #37b4f7;
+}
+@media screen and (min-width:769px){
+  .voice.sanka main figure{
+    display: flex;
+}
+
+}
+
+/*=====================
+.infomation/info #23行目
+=====================*/
+
+.infomation .row{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.infomation #side .row{
+  padding-top:0;
+  padding-bottom: 20px;
+}
+
+.infomation main .row:last-child{
+  padding-bottom: 0;
+}
+
+.infomation .under_title{
+  background-image:url(../img/flow_main.jpg);
+}
+
+.infomation .title{
+  text-align: left;
+}
+
+.infomation .title a{
+  color: #F77237;
+}
+
+.infomation .wrapper{
+  flex-direction:column;
+  margin-bottom: 140px;
+}
+
+.infomation .more{
+  display: inline-block;
+  border: 1px solid #999;
+  color:#999;
+  border-radius: 3px;
+  padding:1rem;
+}
+
+.infomation .content{
+  margin-bottom: 30px;
+}
+
+.infomation .next-prev{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
+}
+
+.infomation .next-prev a{
+  display: flex;
+  align-items: center;
+}
+
+.infomation .wrapper #side ul{
+  display: block;
+}
+
+.infomation .wrapper #side ul li{
+  text-align: left;
+  line-height: 2;
+  list-style: disc inside;
+  margin-bottom: 0;
+}
+
+.infomation .wrapper #side ul li a{
+  display: inline;
+  border:none;
+}
+
+
+
+
+@media screen and (min-width:769px){
+  .infomation .wrapper{
+    flex-direction:row;
+  }
+
+  .infomation .content{
+    margin-bottom: 70px;
+  }
+
+  .infomation .next-prev{
+    margin-bottom: 0px;
+  }
+}/*===min-width:769px===*/
